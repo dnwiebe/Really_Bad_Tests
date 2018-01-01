@@ -3,8 +3,8 @@ public class MyThing extends Thing {
 
 	@Override
 	public void onEvent (Parameter param) {
-		doOneThing (param, true);
-		doAnotherThing (param, false);
+		this.doOneThing (param, true);
+		this.doAnotherThing (param, false);
 	}
 }
 

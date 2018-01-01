@@ -106,15 +106,15 @@ public void logoutClearsServiceContext () {
 		field.setAccessible (true);
 		field.set (context, "booga");
 	}
+	DistantIsolatedLogoutHandler subject =
+		new DistantIsolatedLogoutHandler ();
 
-	Utils.logout (context);
+	subject.logout (context);
 
 	for (Field field : context.getClass ().getFields ()) {
 		assertNull (field.get (context));
 	}
 }
-
-
 
 
 

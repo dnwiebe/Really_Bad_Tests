@@ -8,9 +8,9 @@ public void onViewCreatedAttachesEditorActionListener () {
 
 	subject.onViewCreated (view, null);
 
-	ArgumentCaptor<OnEditorActionListener> captor = 
-		ArgumentCaptor.forClass (OnEditorActionListener.class);
-	verify (firstName).setOnEditorActionListener (captor.capture ());
+	verify (firstName).setOnEditorActionListener (
+		any (OnEditorActionListener.class)
+	);
 }
 
 
@@ -33,9 +33,9 @@ public void onViewCreatedAttachesEditorActionListener () {
 
 	subject.onViewCreated (view, null);
 
-	verify (firstName).setOnEditorActionListener (
-		any (OnEditorActionListener.class)
-	);
+	ArgumentCaptor<OnEditorActionListener> captor = 
+		ArgumentCaptor.forClass (OnEditorActionListener.class);
+	verify (firstName).setOnEditorActionListener (captor.capture ());
 }
 
 

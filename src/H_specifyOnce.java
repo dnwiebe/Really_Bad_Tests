@@ -83,8 +83,8 @@ public void convertConverts () {
 
 	HighLevelDto result = subject.convert (input);
 
-	assertEquals (input.getSecondValue (), "second input value");
-	assertEquals (input.getFirstValue (), "first input value");
+	assertEquals ("second input value", result.getFirstValue ());
+	assertEquals ("first input value", result.getSecondValue ());
 }
 
 
@@ -108,8 +108,8 @@ public void convertConverts () {
 
 	HighLevelDto result = subject.convert (input);
 
-	assertEquals (input.getSecondValue (), "second input value");
-	assertEquals (input.getFirstValue (), "first input value");
+	assertEquals ("second input value", result.getFirstValue ());
+	assertEquals ("first input value", result.getSecondValue ());
 }
 
 

@@ -202,7 +202,7 @@ class AccountManipulator {
 
 Morals:
 
-1. Put your if early, but throw an exception from the untested branch.
+1. Write your if early, but throw an exception from the untested branch.
 
 
 
