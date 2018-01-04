@@ -135,7 +135,7 @@ class DatabaseThingy {
 		String url = BASE_JDBC_URL + 
 			";username=" + username + ";password=" + password;
 		return driverManagerWrapper.getConnection (url);	
-	}	
+	}
 }
 
 

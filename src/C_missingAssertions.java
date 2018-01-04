@@ -1,6 +1,6 @@
 
 @Test
-public void onViewCreatedAttachesEditorActionListener () {
+public void firstNameClearsFocusOnEditorDoneButNotAnythingElse () {
 	View view = mock (View.class);
 	EditText firstName = mock (EditText.class);
 	when (view.findViewById (R.id.first_name)).thenReturn (firstName);

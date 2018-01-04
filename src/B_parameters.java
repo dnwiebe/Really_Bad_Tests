@@ -26,6 +26,7 @@ class ExampleMaker {
 
 @Test
 public void makesPenetrableThing () {
+	ExampleMaker subject = new ExampleMaker ();
 
 	PenetrableThing result = subject.makePenetrable (42);
 
@@ -46,11 +47,11 @@ public void makesPenetrableThing () {
 
 
 
-
 //------
 
 @Test
 public void makesObservableThing () {
+	ExampleMaker subject = new ExampleMaker ();
 
 	ObservableThing result = subject.makeObservable (42);
 
@@ -70,12 +71,11 @@ public void makesObservableThing () {
 
 
 
-
-
 //------
 
 @Test
 public void makesImpenetrableThing () {
+	ExampleMaker subject = new ExampleMaker ();
 
 	ImpenetrableThing result = subject.makeImpenetrable (42);
 
