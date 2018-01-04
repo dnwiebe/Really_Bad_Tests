@@ -54,13 +54,13 @@ public class MyThingQtn extends Thing {
 
 	@Override
 	public void onEvent (Parameter param) {
-		impl.onEvent (param);
+		impl.onEvent (this, param);
 	}
 }
 
 public class MyThingImpl {
 
-	public void onEvent (Parameter param, MyThingQtn qtn) {
+	public void onEvent (MyThingQtn qtn, Parameter param) {
 		qtn.doOneThing (param, true);
 		qtn.doAnotherThing (param, false);
 	}
@@ -77,24 +77,24 @@ public class MyThingImpl {
 public class MyThingQtnTest {
 	@Test
 	public void onEventDelegates () {
-		Parameter param = mock (Parameter.class);
 		MyThingQtn subject = new MyThingQtn ();
+		Parameter param = mock (Parameter.class);
 		subject.impl = mock (MyThingImpl.class);
 
 		subject.onEvent (param);
 
-		verify (subject.impl).onEvent (param);
+		verify (subject.impl).onEvent (subject, param);
 	}
 }
 
 public class MyThingImplTest {
 	@Test
 	public void handlesEvent () {
-		Parameter param = mock (Parameter.class);
 		MyThingQtn qtn = mock (MyThingQtn.class);
+		Parameter param = mock (Parameter.class);
 		MyThingImpl subject = new MyThingImpl ();
 
-		subject.onEvent (param, qtn);
+		subject.onEvent (qtn, param);
 
 		verify (qtn).doOneThing (param, true);
 		verify (qtn).doAnotherThing (param, false);

@@ -28,8 +28,8 @@ class DatabaseThingy {
 public void configuresConnectionWithUsernameAndPassword () {
 	DatabaseThingy subject = new DatabaseThingy ();
 
-	Connection result = subject.makeDatabaseConnection ("username", 
-		"password");
+	Connection result = subject.makeDatabaseConnection ("billy", 
+		"moonwalk");
 
 	assertNotNull (result);
 }
@@ -103,21 +103,21 @@ class DriverManagerWrapper {
 public void configuresConnectionWithUsernameAndPassword () {
 	String expectedUrl = BASE_JDBC_URL + 
 		";username=billy;password=moonwalk";
-	DatabaseThingy subject = new DatabaseThingy ();
-	subject.driverManagerWrapper = mock (DriverManagerWrapper.class);
 	Connection connection = mock (Connection.class);
-	when (subject.driverManagerWrapper.getConnection (expectedUrl))
+	DriverManagerWrapper driverManagerWrapper = mock (DriverManagerWrapper.class);
+	when (driverManagerWrapper.getConnection (expectedUrl))
 		.thenReturn (connection);
+	DatabaseThingy subject = new DatabaseThingy ();
+	subject.driverManagerWrapper = driverManagerWrapper;
 
 	Connection result = subject.makeDatabaseConnection ("billy", 
 		"moonwalk");
 
 	ArgumentCaptor<JDBCDriver> captor = ArgumentCaptor.forClass (JDBCDriver.class);
-	verify (subject.driverManagerWrapper).registerDriver (captor);
+	verify (driverManagerWrapper).registerDriver (captor);
 	assertSame (com.awesome.db.JDBCDriver.class, captor.getValue ().getClass ());
 	assertSame (connection, result);
 }
-
 
 
 
@@ -210,7 +210,7 @@ Morals:
 
 4. Use an instantiable, mockable wrapper to test uses of static methods.
 
-5. Remember to ensure that your subject defaults its collaborators properly.
+5. Remember to drive your subject to default its collaborators properly.
 
 
 

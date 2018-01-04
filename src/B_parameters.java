@@ -100,6 +100,13 @@ public void makesImpenetrableThing () {
 //------
 
 class ExampleMaker {
+	static class ImpenetrableThingFactory {
+		public ImpenetrableThing make (int oneParam, String anotherParam) {
+			// this line is untestable
+			return new ImpenetrableThing (oneParam, anotherParam);
+		}
+	}
+
 	ImpenetrableThingFactory factory = new ImpenetrableThingFactory ();
 
 	public PenetrableThing makePenetrable (int oneParam) {
@@ -113,24 +120,18 @@ class ExampleMaker {
 	public ImpenetrableThing makeImpenetrable (int oneParam) {
 		return factory.make (oneParam, "anotherParam");
 	}
-
-	static class ImpenetrableThingFactory {
-		public ImpenetrableThing make (int oneParam, String anotherParam) {
-			// this line is untestable
-			return new ImpenetrableThing (oneParam, anotherParam);
-		}
-	}
 }
 
 //------
 
 @Test
 public void makesImpenetrableThing () {
-	ExampleMaker subject = new ExampleMaker ();
-	subject.factory = mock (ImpenetrableThingFactory.class);
-	ImpenetrableThing impenetrableThing = new ImpenetrableThing ();
-	when (subject.factory.make (42, "anotherParam"))
+	ImpenetrableThingFactory factory = mock (ImpenetrableThingFactory.class);
+	ImpenetrableThing impenetrableThing = mock (ImpenetrableThing.class);
+	when (factory.make (42, "anotherParam"))
 		.thenReturn (impenetrableThing);
+	ExampleMaker subject = new ExampleMaker ();
+	subject.factory = factory;
 
 	ImpenetrableThing result = subject.makeImpenetrable (42);
 

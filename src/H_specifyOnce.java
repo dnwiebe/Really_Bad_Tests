@@ -129,10 +129,10 @@ Morals:
 
 1. Always watch your test fail before you make it pass.
 
-2. Assert on the data that goes into your inputs, not on data that
+2. Inadvertently testing two things at once can allow errors to hide.
+
+3. Assert on the data that goes into your inputs, not on data that
 	comes out of them.
-
-
 
 
 

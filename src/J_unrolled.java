@@ -155,16 +155,15 @@ public void logoutClearsServiceContext () {
 	for (String key : context.data.keySet ()) {
 		context.data.put (key, "booga");
 	}
+	DistantIsolatedLogoutHandler subject =
+		new DistantIsolatedLogoutHandler ();
 
-	Utils.logout (context);
+	subject.logout (context);
 
 	for (String key : context.data.keySet ()) {
 		assertNull (context.data.get (key));
 	}
 }
-
-
-
 
 
 

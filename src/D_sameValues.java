@@ -27,7 +27,7 @@ public class CheckerBoard {
 @Test
 public void checkPieceReadsPlacePiece () {
 	Checkerboard subject = new Checkerboard ();
-	subject.placePieceAt (5, 5, true);
+	subject.placePieceAt (5, 5, Boolean.TRUE);
 
 	Boolean result = subject.checkPieceAt (5, 5);
 

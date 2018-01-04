@@ -78,7 +78,7 @@ public void successResultsInSuccessIndicator () {
 public void failureResultsInFailureIndicator () {
 	EventBus bus = mock (EventBus.class);
 	ThingToDo toDo = mock (ThingToDo.class);
-	when (toDo.do ()).thenThrow (new Exception ());
+	when (toDo.do ()).thenThrow (new Exception ("booga"));
 	BusTransmitter subject = new BusTransmitter (bus);
 
 	subject.doAThing (toDo);

@@ -25,37 +25,14 @@ public void onViewCreatedAttachesEditorActionListener () {
 // ------
 
 @Test
-public void onViewCreatedAttachesEditorActionListener () {
-	View view = mock (View.class);
-	EditText firstName = mock (EditText.class);
-	when (view.findViewById (R.id.first_name)).thenReturn (firstName);
-	MyFragment subject = new MyFragment ();
-
-	subject.onViewCreated (view, null);
-
-	ArgumentCaptor<OnEditorActionListener> captor = 
-		ArgumentCaptor.forClass (OnEditorActionListener.class);
-	verify (firstName).setOnEditorActionListener (captor.capture ());
-}
-
-
-
-
-
-
-
-
-
-
-// ------
-
-@Test
 public void firstNameClearsFocusOnEditorDoneButNotAnythingElse () {
 	View view = mock (View.class);
 	EditText firstName = mock (EditText.class);
 	when (view.findViewById (R.id.first_name)).thenReturn (firstName);
 	MyFragment subject = new MyFragment ();
+
 	subject.onViewCreated (view, null);
+
 	ArgumentCaptor<OnEditorActionListener> captor = 
 		ArgumentCaptor.forClass (OnEditorActionListener.class);
 	verify (firstName).setOnEditorActionListener (captor.capture ());
@@ -64,8 +41,6 @@ public void firstNameClearsFocusOnEditorDoneButNotAnythingElse () {
 	checkFirstNameListenerWithIME_ACTION_DONE (listener, firstName);
 	checkFirstNameListenerWithNonIME_ACTION_DONE (listener, firstName);
 }
-
-
 
 
 

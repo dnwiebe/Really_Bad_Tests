@@ -50,7 +50,6 @@ class Example {
 //------
 
 class IntegrationObjectFactory {
-
 	public IntegrationObject make (String name, String value) {
 		// This line is untestable
 		return new IntegrationObject (name, value);
@@ -72,6 +71,7 @@ class Example {
 	}
 }
 
+
 //------
 
 @Test
@@ -83,16 +83,16 @@ public void defaultsCollaborators () {
 
 @Test
 public void methodMakesCorrectIntegrationObject () throws Exception {
+	IntegrationObjectFactory factory = mock (IntegrationObjectFactory.class);
+	when (subject.factory.make (anyString (), anyString ()))
+		.thenReturn (mock (IntegrationObject.class));
 	Example subject = new Example ();
-	subject.factory = mock (IntegrationObjectFactory.class);
+	subject.factory = factory;
 
 	subject.method (FMT.parse ("1941/12/07 06:28:57"));
 
-	verify (subject.factory).make ("notBefore", "1941/12/07 06:28:57");
+	verify (factory).make ("notBefore", "1941/12/07 06:28:57");
 }
-
-
-
 
 
 
@@ -133,16 +133,16 @@ public void defaultsCollaborators () {
 
 @Test
 public void methodMakesCorrectIntegrationObject () throws Exception {
+	IntegrationObjectFactory factory = mock (IntegrationObjectFactory.class);
+	when (factory.make (any (Date.class)))
+		.thenReturn (mock (IntegrationObject.class));
 	Example subject = new Example ();
-	subject.factory = mock (IntegrationObjectFactory.class);
+	subject.factory = factory;
 
 	subject.method (date);
 
-	verify (subject.factory).make (date);
+	verify (factory).make (date);
 }
-
-
-
 
 
 
@@ -157,7 +157,7 @@ class IntegrationObjectFactory {
 	}
 }
 
-class IntegrationObjectFactoryFactory {
+class IntegrationObjectFactoryFacade {
 
 	static final SimpleDateFormat FMT =
 			new SimpleDateFormat ("yyyy/dd/MM HH:mm:ss");
@@ -176,19 +176,20 @@ class IntegrationObjectFactoryFactory {
 
 @Test
 public void defaultsCollaborators () {
-	subject = new IntegrationObjectFactoryFactory ();
+	subject = new IntegrationObjectFactoryFacade ();
 
 	assertSame (IntegrationObjectFactory.class, subject.factory);
 }
 
 @Test
 public void factoryFactoryTranslates () {
-	IntegrationObjectFactoryFactory subject = 
-			new IntegrationObjectFactoryFactory ();
-	subject.factory = mock (IntegrationObjectFactory.class);
+	IntegrationObjectFactory factory = mock (IntegrationObjectFactory.class);
 	IntegrationObject expectedResult = mock (IntegrationObject.class);
-	when (subject.factory.make ("notBefore", "1941/12/07 06:28:57"))
+	when (factory.make ("notBefore", "1941/12/07 06:28:57"))
 		.thenReturn (expectedResult);
+	IntegrationObjectFactoryFacade subject = 
+			new IntegrationObjectFactoryFacade ();
+	subject.factory = factory;
 
 	IntegrationObject result = subject
 		.make (FMT.parse ("1941/12/07 06:28:57"));
@@ -196,30 +197,29 @@ public void factoryFactoryTranslates () {
 	assertSame (expectedResult, result);
 }
 
-
 //------
 
 @Test
 public void defaultsCollaborators () {
 	Example subject = new Example ();
 
-	assertSame (IntegrationObjectFactoryFactory.class, 
+	assertSame (IntegrationObjectFactoryFacade.class, 
 		subject.factory);
 }
 
 @Test
 public void methodMakesCorrectIntegrationObject () throws Exception {
+	IntegrationObjectFactoryFacade facade = 
+		mock (IntegrationObjectFactoryFacade.class);
+	when (facade.make (any (Date.class)))
+		.thenReturn (mock (IntegrationObject.class));
 	Example subject = new Example ();
-	subject.factory = mock (IntegrationObjectFactoryFactory.class);
+	subject.facade = facade;
 
 	subject.method (date);
 
-	verify (subject.factory).make (date);
+	verify (facade).make (date);
 }
-
-
-
-
 
 
 //------
