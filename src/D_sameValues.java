@@ -53,7 +53,7 @@ public class CheckerBoard {
 
 	private Boolean[][] boardData = new Boolean[8][8];
 
-	public void placePieceAt (int x, int y, boolean isRed) {
+	public void placePieceAt (int x, int y, Boolean isRed) {
 		boardData[y][x] = isRed;
 	}
 

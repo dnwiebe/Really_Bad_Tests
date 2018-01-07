@@ -27,10 +27,10 @@ class IntegrationObject {
 class Example {
 
 	public static final SimpleDateFormat FMT =
-			new SimpleDateFormat ("yyyy/dd/MM HH:mm:ss");
+			new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
 
 	public void method (Date date) {
-		Date minimumDate = FMT.format (date);
+		String minimumDate = FMT.format (date);
 		IntegrationObject integrationObject = 
 			new IntegrationObject ("notBefore", minimumDate);
 		// ...use integrationObject...
@@ -59,12 +59,12 @@ class IntegrationObjectFactory {
 class Example {
 
 	public static final SimpleDateFormat FMT =
-			new SimpleDateFormat ("yyyy/dd/MM HH:mm:ss");
+			new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
 
 	IntegrationObjectFactory factory = new IntegrationObjectFactory ();
 
 	public void method (Date date) {
-		Date minimumDate = FMT.format (date);
+		String minimumDate = FMT.format (date);
 		IntegrationObject integrationObject = 
 			factory.make ("notBefore", minimumDate);
 		// use integrationObject
@@ -102,10 +102,10 @@ public void methodMakesCorrectIntegrationObject () throws Exception {
 class IntegrationObjectFactory {
 
 	private static final SimpleDateFormat FMT =
-			new SimpleDateFormat ("yyyy/dd/MM HH:mm:ss");
+			new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
 
 	public IntegrationObject make (Date date) {
-		Date minimumDate = FMT.format (date);
+		String minimumDate = FMT.format (date);
 		// This line is untestable
 		return new IntegrationObject ("notBefore", minimumDate);
 	}
@@ -160,7 +160,7 @@ class IntegrationObjectFactory {
 class IntegrationObjectFactoryFacade {
 
 	static final SimpleDateFormat FMT =
-			new SimpleDateFormat ("yyyy/dd/MM HH:mm:ss");
+			new SimpleDateFormat ("yyyy/MM/dd HH:mm:ss");
 
 	IntegrationObjectFactory factory =
 			new IntegrationObjectFactory ();
